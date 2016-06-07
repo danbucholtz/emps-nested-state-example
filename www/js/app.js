@@ -3,70 +3,62 @@ angular.module('ionicApp', ['ionic'])
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-    .state('tabs', {
-      url: "/tab",
+    .state('menu', {
+      url: "/menu",
       abstract: true,
-      templateUrl: "templates/tabs.html"
+      templateUrl: "templates/menu.html"
     })
-    .state('tabs.home', {
-      url: "/home",
+
+    .state('menu.tabs', {
+      url: "/tabs",
+      abstract: true,
       views: {
-        'home-tab': {
+        'content@menu' :{
+          templateUrl: "templates/tabs.html",
+        }
+      }
+    })
+    .state('menu.tabs.home', {
+      url: "/home",
+      abstract: true,
+      views: {
+        'home-tab@menu.tabs': {
           templateUrl: "templates/home.html",
           controller: 'HomeTabCtrl'
         }
       }
-    }).state('tabs.home.uiview', {
+    }).state('menu.tabs.home.subview', {
       url: "/uiview",
       views: {
-        'test-view': {
+        'subview@menu.tabs.home': {
           templateUrl: "templates/uiview.html"
         }
       }
     })
 
-  .state('tabs.facts', {
-      url: "/facts",
-      views: {
-        'home-tab': {
-          templateUrl: "templates/facts.html"
-        }
-      }
-    })
-    .state('tabs.facts2', {
-      url: "/facts2",
-      views: {
-        'home-tab': {
-          templateUrl: "templates/facts2.html"
-        }
-      }
-    })
-    .state('tabs.about', {
+
+    .state('menu.tabs.about', {
       url: "/about",
       views: {
-        'about-tab': {
+        'about-tab@menu.tabs': {
           templateUrl: "templates/about.html"
         }
       }
     })
-    .state('tabs.navstack', {
+
+    .state('menu.tabs.navstack', {
       url: "/navstack",
       views: {
-        'about-tab': {
+        'about-tab@menu.tabs': {
           templateUrl: "templates/nav-stack.html"
         }
       }
     })
-    .state('tabs.contact', {
-      url: "/contact",
-      views: {
-        'contact-tab': {
-          templateUrl: "templates/contact.html"
-        }
-      }
-    });
 
-  $urlRouterProvider.otherwise("/tab/home/uiview");
+
+
+
+  $urlRouterProvider.otherwise("/menu/tabs/about");
 
 })
 
